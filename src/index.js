@@ -1,17 +1,49 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Grid, Button, IconButton } from '@mui/material';
+import { AccountManagement } from './AccountManagement'; 
+import { useState } from 'react';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+function Index(){
+
+  const loggedIn = false;
+
+  const getAccountButton = ()=> {
+    if(loggedIn){
+      return <IconButton
+              onClick
+            ><AccountCircleIcon  sx={{ fontSize: 40 }} />
+            </IconButton>
+    }
+    return <Button variant="contained"
+      onClick = {() => setMainPage(<AccountManagement/>)}
+      >Login</Button>
+  }
+
+  const main = <>
+  <Grid container spacing={2}>
+    <Grid item xs={11}>
+      <h>xs=8</h>
+    </Grid>
+    <Grid item xs={1}>
+      {getAccountButton()}
+    </Grid>
+    <Grid item xs={4}>
+      <h>xs=4</h>
+    </Grid>
+    <Grid item xs={8}>
+      <h>xs=8</h>
+  </Grid>
+</Grid>
+
+</>
+
+  const [MainPage, setMainPage] = useState(main)
+
+  
+
+  return MainPage
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<Index />);
