@@ -6,10 +6,11 @@ import {useNavigate} from 'react-router-dom';
 function Main(){
 
   const navigate = useNavigate()
-  const {isLoggedIn} = useLoginContext()
+  const {GetLoginContext} = useLoginContext()
 
   const getAccountButton = ()=> {
-    if(isLoggedIn){
+    
+    if(GetLoginContext().isLoggedIn===true){
       return  <IconButton color="secondary" size="large"
               onClick = {()=>navigate("/account",true)}
               >
@@ -17,8 +18,9 @@ function Main(){
               </IconButton>
     }
     return <Button variant="contained"
-      onClick = {()=>navigate("/login",true)}
-      >Login</Button>
+          color="secondary"
+          onClick = {()=>navigate("/login",true)}
+          >Login</Button>
   }
   return(
     <>

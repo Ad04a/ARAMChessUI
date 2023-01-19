@@ -1,20 +1,50 @@
 import React from 'react';
+import { Grid } from '@mui/material';
 import {Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {useNavigate} from 'react-router-dom';
+import { useLoginContext } from './LoginContext';
 
 function Account() {
 
-    
-    const navigate = useNavigate()
+    const {SaveLoginContext} = useLoginContext()
+    const navigate = useNavigate()  
+
+    function LogOut(){
+        SaveLoginContext({isLoggedIn:false});
+        navigate("/",true)
+    }
 
     return (
         <>
-            <Button variant="contained"
-            onClick = {()=>navigate("/",true)}
-            >Back</Button>
-            <br></br>
-            <AccountCircleIcon fontSize="large" />
+        <Grid container spacing={2}>
+            <Grid item xs={1}>
+                <Button variant="contained"
+                color="secondary"
+                size="small"
+                onClick = {()=>navigate("/",true)}
+                >Back</Button>
+            </Grid>
+            <Grid item xs={10}>
+            </Grid>
+            <Grid item xs={1}>
+                <Button variant="contained"
+                color="secondary"
+                size="small"
+                onClick = {()=>LogOut()}
+                >Log out</Button>
+            </Grid>
+            <Grid item xs={2} >
+            </Grid>
+            <Grid item xs={1} >
+                <AccountCircleIcon fontSize="large" />
+            </Grid>
+            <Grid item xs={7} >
+                <h>Username</h>
+            </Grid>
+        </Grid>
+
+            
         </>
     );
 }

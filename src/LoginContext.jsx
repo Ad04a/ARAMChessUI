@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState}from 'react'
+import React, {createContext, useContext}from 'react'
 
 const loginContext = createContext()
 
@@ -7,11 +7,18 @@ function useLoginContext(){
 }
 
 function LoginContextProvider({children}){
-    var [isLoggedIn,setIsLoggedIn] = useState(false)
 
+    function SaveLoginContext(props){
+        localStorage.setItem("isLoggedIn", props.isLoggedIn)
+    } 
+
+    function GetLoginContext(){
+        const props = {isLoggedIn : (localStorage.getItem("isLoggedIn") === 'true')}
+        return props
+    } 
 
     return (
-        <loginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
+        <loginContext.Provider value={{GetLoginContext, SaveLoginContext}}>
             {children}
         </loginContext.Provider>
 

@@ -11,7 +11,7 @@ export function Login() {
 
     const email = "Email"
     const password = "Password"
-    const {setIsLoggedIn} = useLoginContext()
+    const {SaveLoginContext} = useLoginContext()
     const reducer = (state, action) =>{
        var errorMessage = " "
         return state.map( (infoUnit)=>{
@@ -37,7 +37,7 @@ export function Login() {
         console.log(RegisterInformation)
         event.preventDefault();
         alert(RegisterInformation[1].value + RegisterInformation[0].value );
-        setIsLoggedIn(true);
+        SaveLoginContext({isLoggedIn:true});
         navigate("/",true)
     }
 
@@ -64,7 +64,7 @@ export function Login() {
                 <InputField state = {RegisterInformation[0]} func={dispatch}/>
                 <InputField state = {RegisterInformation[1]} func={dispatch}/>
             </Stack>
-            <Button variant="contained" disabled = {!IsValidForm()}
+            <Button variant="contained"  color="secondary" disabled = {!IsValidForm()}
             onClick={handleSubmit}
             >Login</Button>
             

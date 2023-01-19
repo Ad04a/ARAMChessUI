@@ -1,6 +1,7 @@
 import React, { useReducer} from 'react';
-import {TextField, Button, Stack,ButtonGroup, Box} from '@mui/material';
+import {TextField, Button, Stack,ButtonGroup} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { validEmail,validPassword } from './LoginRegexes';
 
 
 export function InputField(props){
@@ -33,19 +34,29 @@ export function Register() {
             
             if(infoUnit.name === action.name){
                 if(action.name === email){
+                    if(validEmail.test(action.value)===false){
+                        errorMessage = "Email is not valid"
+                    }
                 }
                 else if(action.name === username){
+                    if(action.value.length < 3){
+                        errorMessage = "Username must be atleast 8 symbols"
+                    }
                     if(action.value.length > 40){
                         errorMessage = "Username must be less than 40 symbols"
                     }
                 }else if(action.name === password){
                     if(action.value.length < 8){
-                        errorMessage = "Password must be atlest 8 symbols"
+                        errorMessage = "Password must be atleast 8 symbols"
                     }else if(action.value.length > 150){
                         errorMessage = "Password must be less than 150 symbols"
+                    }else if(validPassword.test(action.value)===false){
+                        errorMessage = "Must have a-Z, 0-9, 1 of: #?!@$%^&*-"
                     }
                     if(action.value !== state[3].value){
                         state[3].error = "The given passwords don't match"
+                    }else{
+                        state[3].error = " "
                     }
                 }else if(action.name === confirmPassword){
                     if(action.value !== state[2].value){
@@ -54,6 +65,9 @@ export function Register() {
                 }
                 if(action.value.includes(" ") && action.name !== confirmPassword){
                     errorMessage = "Can't use space in "+action.name
+                }
+                if(action.value.length < 1){
+                    errorMessage = " "
                 }
                 return {...infoUnit, value:action.value, error:errorMessage}
             }
@@ -108,7 +122,7 @@ export function Register() {
             </Stack>
             <br></br>
             <br></br>
-            <Button variant="contained" disabled = {IsValidForm()}
+            <Button variant="contained"  color="secondary" disabled = {IsValidForm()}
             onClick={handleSubmit}
             >Register</Button>
         </Stack>
