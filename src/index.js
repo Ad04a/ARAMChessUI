@@ -1,49 +1,32 @@
 import ReactDOM from 'react-dom/client';
-import { Grid, Button, IconButton } from '@mui/material';
-import { AccountManagement } from './AccountManagement'; 
-import { useState } from 'react';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { LoginContextProvider } from './LoginContext';
+import { Login } from './login';
+import { Register } from './register';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { Main } from './main';
+import { Account } from './account';
 
 function Index(){
-
-  const loggedIn = false;
-
-  const getAccountButton = ()=> {
-    if(loggedIn){
-      return <IconButton
-              onClick
-            ><AccountCircleIcon  sx={{ fontSize: 40 }} />
-            </IconButton>
-    }
-    return <Button variant="contained"
-      onClick = {() => setMainPage(<AccountManagement/>)}
-      >Login</Button>
-  }
-
-  const main = <>
-  <Grid container spacing={2}>
-    <Grid item xs={11}>
-      <h>xs=8</h>
-    </Grid>
-    <Grid item xs={1}>
-      {getAccountButton()}
-    </Grid>
-    <Grid item xs={4}>
-      <h>xs=4</h>
-    </Grid>
-    <Grid item xs={8}>
-      <h>xs=8</h>
-  </Grid>
-</Grid>
-
-</>
-
-  const [MainPage, setMainPage] = useState(main)
-
-  
-
-  return MainPage
+  return(
+      <>
+    <LoginContextProvider>
+    <BrowserRouter>
+    <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/" element={<Main />} />
+    </Routes>
+    </BrowserRouter>
+    </LoginContextProvider>
+      </>
+  ) 
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<Index />);
+
+
+    
+
+

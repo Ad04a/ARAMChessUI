@@ -1,5 +1,7 @@
 import React, { useReducer} from 'react';
-import {TextField, Button, Stack} from '@mui/material';
+import {TextField, Button, Stack,ButtonGroup, Box} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 export function InputField(props){
     return (
@@ -10,7 +12,7 @@ export function InputField(props){
                 label={props.state.name} 
                 variant="filled"
                 size = "small" 
-                margin = "normal"
+                margin = "none"
                 onChange={(e)=>props.func({...props.state, value:e.target.value})}
                 helperText = {props.state.error}
             />
@@ -23,6 +25,7 @@ export function Register() {
     const username = "Username"
     const password = "Password"
     const confirmPassword = "Confirm password"
+    const navigate = useNavigate()
    
     const reducer = (state, action) =>{
        var errorMessage = " "
@@ -32,19 +35,21 @@ export function Register() {
                 if(action.name === email){
                 }
                 else if(action.name === username){
-
+                    if(action.value.length > 40){
+                        errorMessage = "Username must be less than 40 symbols"
+                    }
                 }else if(action.name === password){
                     if(action.value.length < 8){
                         errorMessage = "Password must be atlest 8 symbols"
                     }else if(action.value.length > 150){
-                        errorMessage = "Password must less than 150 symbols"
+                        errorMessage = "Password must be less than 150 symbols"
                     }
                     if(action.value !== state[3].value){
                         state[3].error = "The given passwords don't match"
                     }
                 }else if(action.name === confirmPassword){
                     if(action.value !== state[2].value){
-                        errorMessage = "Passwords don't match"
+                        errorMessage = "The given passwords don't match"
                     }
                 }
                 if(action.value.includes(" ") && action.name !== confirmPassword){
@@ -68,6 +73,7 @@ export function Register() {
         console.log(RegisterInformation)
         event.preventDefault();
         alert(RegisterInformation[1].value + RegisterInformation[0].value + RegisterInformation[2].value + RegisterInformation[3].value);
+        navigate("/login",true)
     }
 
     const IsValidForm = () =>{
@@ -77,28 +83,36 @@ export function Register() {
 
     return (
         <>
+        <Stack
+        component="form"
+        sx={{
+            width: '150ch',
             
-            <Stack
-            component="form"
-            sx={{
-                width: '30ch',
-            }}
-            spacing={0.5}
-            direction="column"
-            justifyContent="space-evenly"
-            alignItems="center"
-            >
-                <h1>Register</h1>
-                <InputField state = {RegisterInformation[1]} func={dispatch}/>
+        }}
+        spacing={0}
+        direction="column"
+        justifyContent="space-between"
+        alignItems="center"
+        >   
+            
+            <ButtonGroup variant="contained" color="secondary" >
+            <Button onClick = {()=>navigate("/login", true)}>Login</Button>
+            <Button disabled>Register</Button>
+            </ButtonGroup>
+            <h1>Register</h1>
+            <Stack sx={{width:"33ch"}}>
+                <InputField fullWidth  state = {RegisterInformation[1]} func={dispatch}/>
                 <InputField state = {RegisterInformation[0]} func={dispatch}/>
                 <InputField state = {RegisterInformation[2]} func={dispatch}/>
                 <InputField state = {RegisterInformation[3]} func={dispatch}/>
-                <br></br>
-                <br></br>
-                <Button variant="contained" disabled = {IsValidForm()}
-                onClick={handleSubmit}
-                >Register</Button>
             </Stack>
+            <br></br>
+            <br></br>
+            <Button variant="contained" disabled = {IsValidForm()}
+            onClick={handleSubmit}
+            >Register</Button>
+        </Stack>
+        
         </>
     );
 }
