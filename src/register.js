@@ -2,6 +2,7 @@ import React, { useReducer} from 'react';
 import {TextField, Button, Stack,ButtonGroup} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { validEmail,validPassword } from './LoginRegexes';
+import { HomeButton } from './HomeButton';
 
 
 export function InputField(props){
@@ -97,6 +98,7 @@ export function Register() {
 
     return (
         <>
+        <HomeButton/>
         <Stack
         component="form"
         sx={{

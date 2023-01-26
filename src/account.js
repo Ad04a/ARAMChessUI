@@ -4,6 +4,7 @@ import {Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {useNavigate} from 'react-router-dom';
 import { useLoginContext } from './LoginContext';
+import { HomeButton } from './HomeButton';
 
 function Account() {
 
@@ -19,11 +20,7 @@ function Account() {
         <>
         <Grid container spacing={2}>
             <Grid item xs={1}>
-                <Button variant="contained"
-                color="secondary"
-                size="small"
-                onClick = {()=>navigate("/",true)}
-                >Back</Button>
+                <HomeButton/>
             </Grid>
             <Grid item xs={10}>
             </Grid>

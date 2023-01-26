@@ -3,6 +3,7 @@ import { InputField } from './register';
 import { Button,Stack,ButtonGroup } from '@mui/material';
 import { useLoginContext } from './LoginContext';
 import { useNavigate } from 'react-router-dom';
+import { HomeButton } from './HomeButton';
 
 export function Login() {
    
@@ -11,7 +12,8 @@ export function Login() {
 
     const email = "Email"
     const password = "Password"
-    const {SaveLoginContext} = useLoginContext()
+    const {GetLoginContext,SaveLoginContext} = useLoginContext()
+    const buttonMessage =  GetLoginContext().isLoggedIn ? "Already Logged In" :"Login" 
     const reducer = (state, action) =>{
        var errorMessage = " "
         return state.map( (infoUnit)=>{
@@ -43,6 +45,7 @@ export function Login() {
 
     return (
         <>
+        <HomeButton/>
         <Stack
         component="form"
         sx={{
@@ -64,9 +67,9 @@ export function Login() {
                 <InputField state = {RegisterInformation[0]} func={dispatch}/>
                 <InputField state = {RegisterInformation[1]} func={dispatch}/>
             </Stack>
-            <Button variant="contained"  color="secondary" disabled = {!IsValidForm()}
+            <Button variant="contained"  color="secondary" disabled = {!IsValidForm()||GetLoginContext().isLoggedIn}
             onClick={handleSubmit}
-            >Login</Button>
+            >{buttonMessage}</Button>
             
         </Stack>
         </>
