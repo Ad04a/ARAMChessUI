@@ -10,10 +10,12 @@ function LoginContextProvider({children}){
 
     function SaveLoginContext(props){
         localStorage.setItem("isLoggedIn", props.isLoggedIn)
+        localStorage.setItem("userName", props.userName)
     } 
 
     function GetLoginContext(){
-        const props = {isLoggedIn : (localStorage.getItem("isLoggedIn") === 'true')}
+        const props = {isLoggedIn : (localStorage.getItem("isLoggedIn") === 'true'),
+                        userName : localStorage.getItem("userName")}
         return props
     } 
 

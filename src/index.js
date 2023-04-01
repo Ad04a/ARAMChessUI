@@ -1,10 +1,11 @@
 import ReactDOM from 'react-dom/client';
-import { LoginContextProvider } from './LoginContext';
-import { Login } from './login';
-import { Register } from './register';
+import { LoginContextProvider } from './AccountManagment/LoginContext';
+import { Login } from './AccountManagment/login';
+import { Register } from './AccountManagment/register';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import { Main } from './main';
-import { Account } from './account';
+import { Account } from './AccountManagment/account';
+
 
 function Index(){
   return(

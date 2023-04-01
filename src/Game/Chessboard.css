@@ -1,0 +1,27 @@
+#chessboard
+{
+    display: grid;
+    grid-template-columns: repeat(8,10vmin);
+    grid-template-rows: repeat(8,10vmin);
+}
+    
+#chessboard .tile
+{
+    width: 10vmin;
+    height: 10vmin;
+}
+
+#chessboard .light-tile
+{
+    background: #eeeed2;
+}
+
+#chessboard .dark-tile
+{
+    background-color: #769656;
+}
+
+#chessboard .wall-tile
+{
+    background-image:url("../../public/Chessboard/wall.png");
+}

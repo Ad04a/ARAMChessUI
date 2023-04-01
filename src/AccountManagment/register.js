@@ -1,4 +1,5 @@
 import React, { useReducer} from 'react';
+import axios from "axios";
 import {TextField, Button, Stack,ButtonGroup} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { validEmail,validPassword } from './LoginRegexes';
@@ -85,10 +86,20 @@ export function Register() {
     ]);
 
     const handleSubmit = (event) => {
-        console.log(RegisterInformation)
-        event.preventDefault();
-        alert(RegisterInformation[1].value + RegisterInformation[0].value + RegisterInformation[2].value + RegisterInformation[3].value);
-        navigate("/login",true)
+        const user = {
+            Email:RegisterInformation[0].value,
+            Password:RegisterInformation[2].value,
+            Name:RegisterInformation[1].value
+        };
+        axios.post("http://localhost:5033/register", user).then(response => {
+            console.log(RegisterInformation)
+            event.preventDefault();
+            navigate("/login",true)
+        })
+        .catch(error => {
+           return;
+        });
+        
     }
 
     const IsValidForm = () =>{

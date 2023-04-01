@@ -8,9 +8,9 @@ import { HomeButton } from './HomeButton';
 
 function Account() {
 
-    const {SaveLoginContext} = useLoginContext()
+    const {SaveLoginContext, GetLoginContext} = useLoginContext()
     const navigate = useNavigate()  
-
+    const userName = GetLoginContext().userName;
     function LogOut(){
         SaveLoginContext({isLoggedIn:false});
         navigate("/",true)
@@ -37,7 +37,7 @@ function Account() {
                 <AccountCircleIcon fontSize="large" />
             </Grid>
             <Grid item xs={7} >
-                <h>Username</h>
+                <h>{userName}</h>
             </Grid>
         </Grid>
 

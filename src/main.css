@@ -1,0 +1,12 @@
+#main{
+    background-color: #312e2b;
+        	
+    height: 100v;
+}
+
+#board
+{
+    display: grid;
+    place-content: center;
+
+}

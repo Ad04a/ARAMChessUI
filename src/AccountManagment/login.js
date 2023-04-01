@@ -4,6 +4,7 @@ import { Button,Stack,ButtonGroup } from '@mui/material';
 import { useLoginContext } from './LoginContext';
 import { useNavigate } from 'react-router-dom';
 import { HomeButton } from './HomeButton';
+import axios from "axios";
 
 export function Login() {
    
@@ -36,11 +37,22 @@ export function Login() {
     }
 
     const handleSubmit = (event) => {
-        console.log(RegisterInformation)
-        event.preventDefault();
-        alert(RegisterInformation[1].value + RegisterInformation[0].value );
-        SaveLoginContext({isLoggedIn:true});
-        navigate("/",true)
+        const user = {
+            Email:RegisterInformation[0].value,
+            Password:RegisterInformation[1].value
+        };
+        axios.post("http://localhost:5033/Login", user).then(response => {
+            console.log(RegisterInformation)
+            event.preventDefault();
+            SaveLoginContext({isLoggedIn:true, userName:RegisterInformation[0].value });
+            navigate("/",true)
+        })
+        .catch(error => {
+            console.log(error);
+            return;
+        });
+
+       
     }
 
     return (

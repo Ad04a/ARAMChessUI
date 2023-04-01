@@ -1,7 +1,10 @@
 import { Grid, Button, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useLoginContext } from './LoginContext';
+import { useLoginContext } from './AccountManagment/LoginContext';
 import {useNavigate} from 'react-router-dom';
+import {Chessboard} from './Game/Chessboard.jsx'
+
+import "./main.css"
 
 function Main(){
 
@@ -23,23 +26,29 @@ function Main(){
           >Login</Button>
   }
   return(
-    <>
+    <div id="main">
     <Grid container spacing={2}>
         <Grid item xs={11}>
-        <h>xs=8</h>
         </Grid>
+
         <Grid item xs={1}>
         {getAccountButton()}
         </Grid>
-        <Grid item xs={4}>
-        <h>xs=4</h>
+
+        <Grid item xs={3}>
         </Grid>
-        <Grid item xs={8}>
-        <h>xs=8</h>
-      </Grid>
+        <Grid id ="board" item xs={6}>
+        <Chessboard/>
+        </Grid>
+        <Grid item xs={3}>
+        </Grid>
+
+        <Grid item xs={12}>
+        </Grid>
+
     </Grid>
 
-    </>
+    </div>
   ) 
 }
 
